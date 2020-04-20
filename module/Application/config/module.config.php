@@ -12,6 +12,7 @@ namespace Application;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\Method;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -27,13 +28,76 @@ return [
                     ],
                 ],
             ],
-            'application' => [
+            'schema'  => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                    'route' => '/:schema',
+                    'constraints' => [
+                        'schema' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ],
+                ],
+                'child_routes' => [
+                    'fetch' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'get',
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action'     => 'fetch',
+                            ],
+                        ],
+                    ],
+                    'create' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'post',
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action'     => 'create',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'item' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/:schema/:id',
+                    'constraints' => [
+                        'schema'       => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'           => '[0-9]*',
+                    ],
+                ],
+                'child_routes' => [
+                    'find' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'get',
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action'     => 'find',
+                            ],
+                        ],
+                    ],
+                    'replace' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'put',
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action'     => 'replace',
+                            ],
+                        ],
+                    ],
+                    'delete' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'delete',
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action'     => 'delete',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -58,6 +122,9 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
 ];

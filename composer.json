@@ -35,7 +35,7 @@
             "@development-enable",
             "php bin/update-gitignore.php"
         ],
-        "serve": "php -S 0.0.0.0:8080 -t public",
+        "serve": "php -S 0.0.0.0:8090 -t public",
         "test": "phpunit"
     }
 }
