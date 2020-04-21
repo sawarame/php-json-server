@@ -13,7 +13,9 @@
         "php": "^7.3",
         "laminas/laminas-component-installer": "^1.0 || ^2.1",
         "laminas/laminas-development-mode": "^3.2",
-        "laminas/laminas-mvc": "^3.1.1"
+        "laminas/laminas-mvc": "^3.1.1",
+        "components/jquery": "^3.4",
+        "components/bootstrap": "^4.4"
     },
     "require-dev": {
         "laminas/laminas-developer-tools": "^2.0",
@@ -30,6 +32,12 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [
+            "php bin/assets"
+        ],
+        "post-update-cmd": [
+            "php bin/assets"
+        ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "development-disable": "laminas-development-mode disable",
