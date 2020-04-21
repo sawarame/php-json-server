@@ -15,6 +15,10 @@
         "laminas/laminas-development-mode": "^3.2",
         "laminas/laminas-mvc": "^3.1.1"
     },
+    "require-dev": {
+        "laminas/laminas-developer-tools": "^2.0",
+        "laminas/laminas-test": "^3.4"
+    },
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/"
