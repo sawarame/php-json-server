@@ -20,47 +20,4 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
-
-    public function fetchAction()
-    {
-        return new JsonModel([
-            'schema' => $this->params('schema'),
-            'method' => 'fetch',
-        ]);
-    }
-
-    public function createAction()
-    {
-        return new JsonModel([
-            'schema' => $this->params('schema'),
-            'method' => 'post',
-        ]);
-    }
-
-    public function findAction()
-    {
-        return new JsonModel([
-            'schema' => $this->params('schema'),
-            'id'     => $this->params('id'),
-            'method' => 'find',
-        ]);
-    }
-
-    public function replaceAction()
-    {
-        return new JsonModel([
-            'schema' => $this->params('schema'),
-            'id'     => $this->params('id'),
-            'method' => 'replace',
-        ]);
-    }
-
-    public function deleteAction()
-    {
-        return new JsonModel([
-            'schema' => $this->params('schema'),
-            'id'     => $this->params('id'),
-            'method' => 'delete',
-        ]);
-    }
 }

@@ -42,7 +42,7 @@ return [
                         'options' => [
                             'verb' => 'get',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class,
+                                'controller' => Controller\MainController::class,
                                 'action'     => 'fetch',
                             ],
                         ],
@@ -52,7 +52,7 @@ return [
                         'options' => [
                             'verb' => 'post',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class,
+                                'controller' => Controller\MainController::class,
                                 'action'     => 'create',
                             ],
                         ],
@@ -74,7 +74,7 @@ return [
                         'options' => [
                             'verb' => 'get',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class,
+                                'controller' => Controller\MainController::class,
                                 'action'     => 'find',
                             ],
                         ],
@@ -84,7 +84,7 @@ return [
                         'options' => [
                             'verb' => 'put',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class,
+                                'controller' => Controller\MainController::class,
                                 'action'     => 'replace',
                             ],
                         ],
@@ -94,7 +94,7 @@ return [
                         'options' => [
                             'verb' => 'delete',
                             'defaults' => [
-                                'controller' => Controller\IndexController::class,
+                                'controller' => Controller\MainController::class,
                                 'action'     => 'delete',
                             ],
                         ],
@@ -106,6 +106,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\MainController::class => Controller\MainControllerFactory::class,
         ],
     ],
     'view_manager' => [

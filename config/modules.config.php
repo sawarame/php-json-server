@@ -16,4 +16,5 @@ return [
     'Laminas\Validator',
     'Laminas\DeveloperTools',
     'Application',
+    'Domain',
 ];

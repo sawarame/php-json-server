@@ -5,7 +5,8 @@ namespace Domain\Repository;
 use InvalidArgumentException;
 use Domain\Model\Data;
 
-class JsonDbImpl implements JsonDb {
+class JsonDbImpl implements JsonDb
+{
 
     private $config;
     private $model;
@@ -23,10 +24,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Load json data from schema name.
-     *
-     * @param string $schemaName
-     * @return JsonDb
+     * @inheritDoc
      */
     public function load(string $schemaName): JsonDb
     {
@@ -44,9 +42,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Return current data converted to array.
-     *
-     * @return array
+     * @inheritDoc
      */
     public function toArray(): array
     {
@@ -54,10 +50,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Insert data.
-     *
-     * @param array $data
-     * @return integer
+     * @inheritDoc
      */
     public function insert(array $data): int
     {
@@ -65,10 +58,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Find data by primary key.
-     *
-     * @param integer $id
-     * @return array|null
+     * @inheritDoc
      */
     public function find(int $id): ?array
     {
@@ -76,10 +66,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Retrurn data searched.
-     *
-     * @param array $params
-     * @return array
+     * @inheritDoc
      */
     public function read(array $params): array
     {
@@ -89,10 +76,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Update date.
-     *
-     * @param array $data
-     * @return JsonDb
+     * @inheritDoc
      */
     public function update(array $data): JsonDb
     {
@@ -107,10 +91,7 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Delete data.
-     *
-     * @param integer $id
-     * @return JsonDb
+     * @inheritDoc
      */
     public function delete(int $id): JsonDb
     {
@@ -122,15 +103,13 @@ class JsonDbImpl implements JsonDb {
     }
 
     /**
-     * Save current data.
-     *
-     * @return JsonDb
+     * @inheritDoc
      */
     public function permanent(): JsonDb
     {
         file_put_contents($this->path, json_encode(
             $this->model,
-            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
+            JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
         ));
         return $this;
     }

@@ -8,9 +8,10 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'service_manager' => [
         'factories' => [
+            Service\MainService::class => Service\MainServiceFactory::class,
             Repository\JsonDbImpl::class => Repository\JsonDbFactory::class,
         ],
-        'alias' => [
+        'aliases' => [
             Repository\JsonDb::class => Repository\JsonDbImpl::class,
         ],
     ],

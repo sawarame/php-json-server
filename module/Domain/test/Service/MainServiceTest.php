@@ -27,39 +27,47 @@ class MainServiceTest extends TestCase
 
         $mock->method('find')
             ->willReturn(['id' => 3, 'name' => 'Blue',  'code' => '#0000ff']);
-
-
     }
 
     public function testRead()
     {
+        $schemaName = 'sample';
+        $params = [];
         $this->assertSame([
             ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
             ['id' => 2, 'name' => 'Green', 'code' => '#00ff00'],
             ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
-        ], $this->mainService->read([]));
+        ], $this->mainService->read($schemaName, $params));
     }
 
     public function testInsert()
     {
-        $this->assertSame(4, $this->mainService->insert([]));
+        $schemaName = 'sample';
+        $params = [];
+        $this->assertSame(4, $this->mainService->insert($schemaName, $params));
     }
 
     public function testFind()
     {
+        $schemaName = 'sample';
+        $id = 3;
         $this->assertSame(
             ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
-            $this->mainService->find(3)
+            $this->mainService->find($schemaName, $id)
         );
     }
 
     public function testUpdate()
     {
-        $this->assertNull($this->mainService->update([]));
+        $schemaName = 'sample';
+        $params = [];
+        $this->assertNull($this->mainService->update($schemaName, $params));
     }
 
     public function testDelete()
     {
-        $this->assertNull($this->mainService->delete(1));
+        $schemaName = 'sample';
+        $id = 3;
+        $this->assertNull($this->mainService->delete($schemaName, $id));
     }
 }
