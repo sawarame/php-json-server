@@ -37,23 +37,23 @@ return [
                     ],
                 ],
                 'child_routes' => [
-                    'fetch' => [
+                    'read' => [
                         'type' => Method::class,
                         'options' => [
                             'verb' => 'get',
                             'defaults' => [
                                 'controller' => Controller\MainController::class,
-                                'action'     => 'fetch',
+                                'action'     => 'read',
                             ],
                         ],
                     ],
-                    'create' => [
+                    'insert' => [
                         'type' => Method::class,
                         'options' => [
                             'verb' => 'post',
                             'defaults' => [
                                 'controller' => Controller\MainController::class,
-                                'action'     => 'create',
+                                'action'     => 'insert',
                             ],
                         ],
                     ],
@@ -79,13 +79,13 @@ return [
                             ],
                         ],
                     ],
-                    'replace' => [
+                    'update' => [
                         'type' => Method::class,
                         'options' => [
-                            'verb' => 'put',
+                            'verb' => 'post,put',
                             'defaults' => [
                                 'controller' => Controller\MainController::class,
-                                'action'     => 'replace',
+                                'action'     => 'update',
                             ],
                         ],
                     ],
