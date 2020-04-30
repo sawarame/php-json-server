@@ -31,7 +31,8 @@ class Data implements JsonSerializable
      */
     private $maxId = 0;
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return $this->getData();
     }
 

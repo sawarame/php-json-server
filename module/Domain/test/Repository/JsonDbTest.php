@@ -31,7 +31,8 @@ class JsonDbTest extends TestCase
         $this->jsonDb->permanent();
     }
 
-    public function testLoad() {
+    public function testLoad()
+    {
         $this->jsonDb->load('sample');
         $this->assertSame([
             ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
@@ -46,7 +47,8 @@ class JsonDbTest extends TestCase
         $this->jsonDb->load('not_found');
     }
 
-    public function testInsert() {
+    public function testInsert()
+    {
         $this->jsonDb->load('sample');
         $this->jsonDb->insert(['name' => 'Orange',  'code' => '#ffa500']);
         $this->assertSame([
@@ -57,7 +59,8 @@ class JsonDbTest extends TestCase
         ], $this->jsonDb->toArray());
     }
 
-    public function testFind() {
+    public function testFind()
+    {
         $this->jsonDb->load('sample');
         $this->assertSame(
             ['id' => 2, 'name' => 'Green',  'code' => '#00ff00'],
@@ -66,7 +69,8 @@ class JsonDbTest extends TestCase
         $this->assertNull($this->jsonDb->find(4));
     }
 
-    public function testUpdate() {
+    public function testUpdate()
+    {
         $this->jsonDb->load('sample');
         $this->jsonDb->update(['id' => 2, 'name' => 'Gray', 'code' => '#808080']);
         $this->assertSame([
@@ -76,19 +80,22 @@ class JsonDbTest extends TestCase
         ], $this->jsonDb->toArray());
     }
 
-    public function testUpdateIdUnspecified() {
+    public function testUpdateIdUnspecified()
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->update(['name' => 'Gray', 'code' => '#808080']);
     }
 
-    public function testUpdateDataNotFound() {
+    public function testUpdateDataNotFound()
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->update(['id' => 4, 'name' => 'Gray', 'code' => '#808080']);
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
         $this->jsonDb->load('sample');
         $this->jsonDb->delete(2);
         $this->assertSame([
@@ -97,13 +104,15 @@ class JsonDbTest extends TestCase
         ], $this->jsonDb->toArray());
     }
 
-    public function testDeleteDataNotFound() {
+    public function testDeleteDataNotFound()
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->delete(4);
     }
 
-    public function testPermanent() {
+    public function testPermanent()
+    {
         $this->jsonDb->load('sample');
         $this->jsonDb->insert(['name' => 'Orange',  'code' => '#ffa500']);
         $this->jsonDb->permanent();

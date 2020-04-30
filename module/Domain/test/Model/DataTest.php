@@ -77,7 +77,7 @@ class DataTest extends TestCase
 
     public function testReplaceIlligalStruct()
     {
-        $this->expectException(\InvalidArgumentException::class);;
+        $this->expectException(\InvalidArgumentException::class);
         $this->data->replace(['name' => 'Michelle', 'age' => '24']);
     }
 

@@ -2,7 +2,6 @@
 
 namespace Domain;
 
-
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
