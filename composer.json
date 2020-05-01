@@ -42,7 +42,7 @@
         "post-update-cmd": [
             "php bin/assets"
         ],
-        "cs-check": "phpcs",
+        "cs-check": "phpcs -s",
         "cs-fix": "phpcbf",
         "phpmd": "phpmd module text unusedcode,codesize",
         "development-disable": "laminas-development-mode disable",
