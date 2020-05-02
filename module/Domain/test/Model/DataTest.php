@@ -6,6 +6,7 @@ namespace DomainTest\Model;
 
 use PHPUnit\Framework\TestCase;
 use Domain\Model\Data;
+use Domain\Exception\DataException;
 
 class DataTest extends TestCase
 {
@@ -65,19 +66,19 @@ class DataTest extends TestCase
 
     public function testReplaceIdIsNotInteger()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(DataException::class);
         $this->data->replace(['id' => '2', 'name' => 'Gray', 'code' => '#808080']);
     }
 
     public function testReplaceValueIsNotScalar()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(DataException::class);
         $this->data->replace(['name' => ['Gray', 'Orange'], 'code' => '#808080']);
     }
 
     public function testReplaceIlligalStruct()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(DataException::class);
         $this->data->replace(['name' => 'Michelle', 'age' => '24']);
     }
 

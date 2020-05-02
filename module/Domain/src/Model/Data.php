@@ -3,7 +3,7 @@
 namespace Domain\Model;
 
 use JsonSerializable;
-use InvalidArgumentException;
+use Domain\Exception\DataException;
 
 /**
  * Data model class.
@@ -109,7 +109,7 @@ class Data implements JsonSerializable
             $row['id'] = ++$this->maxId;
         }
         if (! is_integer($row['id'])) {
-            throw new InvalidArgumentException('some message.');
+            throw new DataException('Column id must be integer.');
         }
         if (! $this->getStruct()) {
             $this->setStruct(array_keys($row));
@@ -145,18 +145,18 @@ class Data implements JsonSerializable
     {
         $newStruct = [];
         if (! in_array('id', $struct)) {
-            throw new InvalidArgumentException('some message.');
+            throw new DataException('Column id is required in structure.');
         }
         $newStruct[] = 'id';
         foreach ($struct as $column) {
             if (! is_string($column)) {
-                throw new InvalidArgumentException('some message.');
+                throw new DataException('Column name in structure must be string.');
             }
             if ('id' === $column) {
                 continue;
             }
             if (in_array($column, $newStruct)) {
-                throw new InvalidArgumentException('some message.');
+                throw new DataException('Can not use same column name in structure.');
             }
             $newStruct[] = $column;
         }
@@ -205,13 +205,13 @@ class Data implements JsonSerializable
     private function shapeByStruct(array $row, bool $force = false): array
     {
         if (! $force && ! $this->checkStruct($row)) {
-            throw new InvalidArgumentException('some message.');
+            throw new DataException('Failed to format data.');
         }
 
         $shapedRow = [];
         foreach ($this->struct as $column) {
             if (! is_scalar($row[$column])) {
-                throw new InvalidArgumentException('some message.');
+                throw new DataException('Column data must be scalar.');
             }
             $shapedRow[$column] = $row[$column];
         }

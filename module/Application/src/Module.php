@@ -33,7 +33,9 @@ class Module
         if (is_null($exception)) {
             return;
         }
-        $event->setResult(new JsonModel(['error' => $exception->getMessage()]));
+        $event->setResult(new JsonModel([
+            'error' => $exception->getMessage()
+        ]));
     }
 
     public function onRenderError(MvcEvent $event)
@@ -42,6 +44,8 @@ class Module
         if (is_null($exception)) {
             return;
         }
-        $event->setResult(new JsonModel(['error' => $exception->getMessage()]));
+        $event->setResult(new JsonModel([
+            'error' => $exception->getMessage()
+        ]));
     }
 }

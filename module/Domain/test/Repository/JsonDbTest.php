@@ -6,6 +6,7 @@ namespace DomainTest\Model;
 
 use PHPUnit\Framework\TestCase;
 use Domain\Repository\JsonDbImpl;
+use Domain\Exception\JsonDbException;
 
 class JsonDbTest extends TestCase
 {
@@ -43,7 +44,7 @@ class JsonDbTest extends TestCase
 
     public function testLoadDataNotFound()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(JsonDbException::class);
         $this->jsonDb->load('not_found');
     }
 
@@ -82,14 +83,14 @@ class JsonDbTest extends TestCase
 
     public function testUpdateIdUnspecified()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(JsonDbException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->update(['name' => 'Gray', 'code' => '#808080']);
     }
 
     public function testUpdateDataNotFound()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(JsonDbException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->update(['id' => 4, 'name' => 'Gray', 'code' => '#808080']);
     }
@@ -106,7 +107,7 @@ class JsonDbTest extends TestCase
 
     public function testDeleteDataNotFound()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(JsonDbException::class);
         $this->jsonDb->load('sample');
         $this->jsonDb->delete(4);
     }
