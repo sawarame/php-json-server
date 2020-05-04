@@ -1,0 +1,58 @@
+{
+    "name": "sawarame/php-json-rest-api-server",
+    "description": "PHP Json REST API Server",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "mvc",
+        "skeleton",
+        "framework"
+    ],
+    "require": {
+        "php": "^7.3",
+        "laminas/laminas-component-installer": "^1.0 || ^2.1",
+        "laminas/laminas-development-mode": "^3.2",
+        "laminas/laminas-mvc": "^3.1.1",
+        "components/jquery": "^3.4",
+        "components/bootstrap": "^4.4"
+    },
+    "require-dev": {
+        "laminas/laminas-developer-tools": "^2.0",
+        "laminas/laminas-test": "^3.4",
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpmd/phpmd": "^2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "module/Application/src/",
+            "Domain\\": "module/Domain/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "module/Application/test/",
+            "DomainTest\\": "module/Domain/test/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php bin/assets"
+        ],
+        "post-update-cmd": [
+            "php bin/assets"
+        ],
+        "cs-check": "phpcs -s",
+        "cs-fix": "phpcbf",
+        "phpmd": "phpmd module text unusedcode,codesize",
+        "development-disable": "laminas-development-mode disable",
+        "development-enable": "laminas-development-mode enable",
+        "development-status": "laminas-development-mode status",
+        "post-create-project-cmd": [
+            "@development-enable",
+            "php bin/update-gitignore.php"
+        ],
+        "serve": "php -S 0.0.0.0:8080 -t public",
+        "test": "phpunit"
+    }
+}

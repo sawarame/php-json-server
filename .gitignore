@@ -1,0 +1,11 @@
+.vagrant/
+vendor/
+config/development.config.php
+data/cache/*
+!data/cache/.gitkeep
+phpunit.xml
+.phpunit.result.cache
+# assets files
+public/js/jquery*
+public/js/bootstrap*
+public/css/bootstrap*
