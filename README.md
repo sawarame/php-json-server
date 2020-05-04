@@ -6,7 +6,7 @@
 
 Use [Composer](https://getcomposer.org/) for installation and server start-up.
 
-```bash
+```sh
 # install
 $ composer create-project sawarame/php-json-server path/to/install
 # Start-up with PHP build-in server
@@ -48,20 +48,20 @@ Data must wrote by array of json format. Data structure is arbitrary, but `id` c
 
 To get the data named `schema_name`, access below URL with GET method.
 
-```
-http://localhost:8080/schema_name
+```sh
+$ curl -X GET 'http://localhost:8080/schema_name'
 ```
 
 Default data rows per page is 20. if you want to change it, use `rows` parameter.
 
-```
-http://localhost:8080/schema_name?rows=10
+```sh
+$ curl -X GET 'http://localhost:8080/schema_name?rows=10'
 ```
 
 How to change page is use `page` parameter.
 
-```
-http://localhost:8080/schema_name?rows=10
+```sh
+$ curl -X GET 'http://localhost:8080/schema_name?rows=10'
 ```
 
 ### Response header
