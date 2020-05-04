@@ -4,6 +4,7 @@ namespace Domain\Repository;
 
 use Domain\Model\Data;
 use Domain\Exception\JsonDbException;
+use Interop\Container\Exception\NotFoundException;
 
 class JsonDbImpl implements JsonDb
 {
@@ -70,7 +71,8 @@ class JsonDbImpl implements JsonDb
      */
     public function page(array $params): int
     {
-        return isset($params['page']) ? (int)$params['page'] : 0;
+        $page = isset($params['page']) ? (int)($params['page'] - 1) : 0;
+        return $page < 0 ? 0 : $page;
     }
 
     /**
@@ -90,7 +92,12 @@ class JsonDbImpl implements JsonDb
         $sort = [];
         $page = $this->page($params);
         $rows = $this->rows($params);
-        return $this->model->read($param, $sort);
+        $offset = $page * $rows;
+        $data = $this->model->read($param, $sort);
+        if ($offset >= count($data)) {
+            throw new JsonDbException('Page exceeds total pages.');
+        }
+        return array_slice($data, $offset, $rows);
     }
 
     /**

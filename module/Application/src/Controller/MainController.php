@@ -26,7 +26,7 @@ class MainController extends AbstractActionController
     {
         $result = $this->service->read(
             $this->params('schema'),
-            []
+            $this->params()->fromQuery()
         );
         $this->getResponse()->setHeaders(Headers::fromString(
             'Rest-Api-Total: ' . $result['total'] . "\r\n" .
