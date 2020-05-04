@@ -1,11 +1,21 @@
 # php-json-rest-sever
 
-`php-json-rest-server` is REST API with PHP. The data source can be wrote json format, and be able to easily set up REST API mock server.
+`php-json-rest-server` is REST API with PHP. The data can be wrote json format, and be able to easily set up REST API mock server.
 
-## Installation
+## Installation and Start-up
 
+Use [Composer](https://getcomposer.org/) for installation and server start-up.
 
-## Set up data
+```bash
+# install
+$ composer create-project sawarame/php-json-server path/to/install
+# Start-up with PHP build-in server
+$ cd path/to/install
+$ composer run --timeout 0 serve
+```
+
+## Prepare data
+
 Save data file in the below path.
 
 ```
