@@ -73,5 +73,3 @@ The response header contains information about paging.
 | Rest-Api-Total: | Total number of datas. |
 | Rest-Api-pages: | Total number of pages. |
 | Rest-Api-Rows: | Rows of current page. |
-
-## Find data.

@@ -34,7 +34,7 @@ class JsonDbImpl implements JsonDb
             throw new JsonDbException('Json data file is not exists.' . realpath($path));
         }
         $data = json_decode(file_get_contents($path), true);
-        if (! $data) {
+        if (is_null($data)) {
             throw new JsonDbException('Faild to open json data file.' . realpath($path));
         }
         $this->path = $path;
