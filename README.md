@@ -4,9 +4,8 @@
 
 ## Installation
 
-## How to use
 
-### Set up data
+## Set up data
 Save data file in the below path.
 
 ```
@@ -35,7 +34,7 @@ The `schema_name` of file name is used to data name. The data name can be any na
 ```
 Data must wrote by array of json format. Data structure is arbitrary, but `id` column is required.
 
-### Read data
+## Read data
 
 To get the data named `schema_name`, access below URL with GET method.
 
@@ -55,7 +54,7 @@ How to change page is use `page` parameter.
 http://localhost:8080/schema_name?rows=10
 ```
 
-#### Response header
+### Response header
 
 The response header contains information about paging.
 
@@ -65,4 +64,4 @@ The response header contains information about paging.
 | Rest-Api-pages: | Total number of pages. |
 | Rest-Api-Rows: | Rows of current page. |
 
-### Find data.
+## Find data.

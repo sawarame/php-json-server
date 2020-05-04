@@ -1,6 +1,6 @@
 {
-    "name": "laminas/laminas-mvc-skeleton",
-    "description": "Laminas MVC Skeleton Application",
+    "name": "sawarame/php-json-rest-api-server",
+    "description": "PHP Json REST API Server",
     "type": "project",
     "license": "BSD-3-Clause",
     "keywords": [
