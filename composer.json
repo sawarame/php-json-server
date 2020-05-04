@@ -1,6 +1,6 @@
 {
-    "name": "sawarame/php-json-rest-api-server",
-    "description": "PHP Json REST API Server",
+    "name": "sawarame/php-json-server",
+    "description": "REST API that can use JSON format files.",
     "type": "project",
     "license": "BSD-3-Clause",
     "keywords": [
