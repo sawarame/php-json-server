@@ -26,7 +26,16 @@ class MainService
     public function read(string $schemaName, array $params): array
     {
         $this->db->load($schemaName);
-        return $this->db->read($params);
+        $total = $this->db->countTotal($params);
+        $rows  = $this->db->rows($params);
+        $data = $this->db->read($params);
+
+        return [
+            'total' => $total,
+            'pages' => (int)ceil($total / $rows),
+            'rows'  => count($data),
+            'data'  => $data,
+        ];
     }
 
     /**

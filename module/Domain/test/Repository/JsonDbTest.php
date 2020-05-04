@@ -70,6 +70,22 @@ class JsonDbTest extends TestCase
         $this->assertNull($this->jsonDb->find(4));
     }
 
+    public function testRead()
+    {
+        $this->jsonDb->load('sample');
+        $this->assertSame([
+            ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
+            ['id' => 2, 'name' => 'Green', 'code' => '#00ff00'],
+            ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
+        ], $this->jsonDb->read([]));
+    }
+
+    public function testCountTotal()
+    {
+        $this->jsonDb->load('sample');
+        $this->assertSame(3, $this->jsonDb->countTotal([]));
+    }
+
     public function testUpdate()
     {
         $this->jsonDb->load('sample');

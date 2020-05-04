@@ -91,7 +91,7 @@ class Data implements JsonSerializable
      *
      * @return array
      */
-    public function read(array $param, array $sort): array
+    public function read(array $param, array $sort = []): array
     {
         $data = $this->getData();
         return $data;

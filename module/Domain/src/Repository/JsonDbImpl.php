@@ -68,11 +68,40 @@ class JsonDbImpl implements JsonDb
     /**
      * @inheritDoc
      */
+    public function page(array $params): int
+    {
+        return isset($params['page']) ? (int)$params['page'] : 0;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rows(array $params): int
+    {
+        return isset($params['rows']) ? (int)$params['rows'] : 20;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function read(array $params): array
     {
         $param = [];
         $sort = [];
+        $page = $this->page($params);
+        $rows = $this->rows($params);
         return $this->model->read($param, $sort);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function countTotal(array $params): int
+    {
+        $param = [];
+        $sort = [];
+        $data = $this->model->read($param, []);
+        return count($data);
     }
 
     /**

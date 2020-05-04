@@ -17,11 +17,16 @@ class MainServiceTest extends TestCase
         $mock = $this->createMock(JsonDbImpl::class);
         $this->mainService = new MainService($mock);
 
+        $mock->method('page')->willReturn(0);
+        $mock->method('rows')->willReturn(20);
+
         $mock->method('read')->willReturn([
             ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
             ['id' => 2, 'name' => 'Green', 'code' => '#00ff00'],
             ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
         ]);
+
+        $mock->method('countTotal')->willReturn(3);
 
         $mock->method('insert')->willReturn(4);
 
@@ -34,9 +39,14 @@ class MainServiceTest extends TestCase
         $schemaName = 'sample';
         $params = [];
         $this->assertSame([
-            ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
-            ['id' => 2, 'name' => 'Green', 'code' => '#00ff00'],
-            ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
+            'total' => 3,
+            'pages' => 1,
+            'rows'  => 3,
+            'data' => [
+                ['id' => 1, 'name' => 'Red',   'code' => '#ff0000'],
+                ['id' => 2, 'name' => 'Green', 'code' => '#00ff00'],
+                ['id' => 3, 'name' => 'Blue',  'code' => '#0000ff'],
+            ],
         ], $this->mainService->read($schemaName, $params));
     }
 

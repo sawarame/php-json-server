@@ -36,12 +36,36 @@ interface JsonDb
     public function find(int $id): ?array;
 
     /**
+     * Get page from params.
+     *
+     * @param array $params
+     * @return integer
+     */
+    public function page(array $params): int;
+
+    /**
+     * Get number of rows per page.
+     *
+     * @param array $params
+     * @return integer
+     */
+    public function rows(array $params): int;
+
+    /**
      * Retrurn data searched.
      *
      * @param array $params
      * @return array
      */
     public function read(array $params): array;
+
+    /**
+     * Count total data rows.
+     *
+     * @param array $params
+     * @return integer
+     */
+    public function countTotal(array $params): int;
 
     /**
      * Update date.

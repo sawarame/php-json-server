@@ -7,6 +7,8 @@ namespace Application\Controller;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
 use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\PhpEnvironment\Response as HttpResponse;
+use Laminas\Http\Headers;
 use Domain\Service\MainService;
 
 class MainController extends AbstractActionController
@@ -22,10 +24,16 @@ class MainController extends AbstractActionController
 
     public function readAction()
     {
-        return new JsonModel($this->service->read(
+        $result = $this->service->read(
             $this->params('schema'),
             []
+        );
+        $this->getResponse()->setHeaders(Headers::fromString(
+            'Rest-Api-Total: ' . $result['total'] . "\r\n" .
+            'Rest-Api-pages: ' . $result['pages'] . "\r\n" .
+            'Rest-Api-Rows: ' . $result['rows']
         ));
+        return new JsonModel($result['data']);
     }
 
     public function insertAction()
@@ -83,5 +91,10 @@ class MainController extends AbstractActionController
     public function getRequest(): HttpRequest
     {
         return parent::getRequest();
+    }
+
+    public function getResponse(): HttpResponse
+    {
+        return parent::getResponse();
     }
 }
