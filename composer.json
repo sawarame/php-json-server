@@ -5,9 +5,9 @@
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
-        "mvc",
-        "skeleton",
-        "framework"
+        "json",
+        "RESTful",
+        "API"
     ],
     "require": {
         "php": "^7.3",
@@ -40,6 +40,9 @@
             "php bin/assets"
         ],
         "post-update-cmd": [
+            "php bin/assets"
+        ],
+        "post-create-project-cmd": [
             "php bin/assets"
         ],
         "cs-check": "phpcs -s",
