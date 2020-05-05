@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @see       https://github.com/sawarame/php-json-server for the canonical source repository
+ * @copyright https://github.com/sawarame/php-json-server/blob/master/COPYRIGHT.md
+ * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
+ */
+
 namespace Domain\Service;
 
 use Domain\Repository\JsonDb;
@@ -58,7 +64,7 @@ class MainService
      * @param integer $id
      * @return array
      */
-    public function find(string $schemaName, int $id): array
+    public function find(string $schemaName, int $id): ?array
     {
         $this->db->load($schemaName);
         return $this->db->find($id);

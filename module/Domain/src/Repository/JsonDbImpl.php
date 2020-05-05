@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * @see       https://github.com/sawarame/php-json-server for the canonical source repository
+ * @copyright https://github.com/sawarame/php-json-server/blob/master/COPYRIGHT.md
+ * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
+ */
+
 namespace Domain\Repository;
 
 use Domain\Model\Data;
 use Domain\Exception\JsonDbException;
-use Interop\Container\Exception\NotFoundException;
+use Domain\Exception\DataNotFoundException;
 
 class JsonDbImpl implements JsonDb
 {
@@ -31,11 +37,11 @@ class JsonDbImpl implements JsonDb
     {
         $path = $this->config['data_path'] . "/${schemaName}.json";
         if (! is_file($path)) {
-            throw new JsonDbException('Json data file is not exists.' . realpath($path));
+            throw new DataNotFoundException('Json data file is not exists.' . realpath($path));
         }
         $data = json_decode(file_get_contents($path), true);
-        if (! $data) {
-            throw new JsonDbException('Faild to open json data file.' . realpath($path));
+        if (is_null($data)) {
+            throw new DataNotFoundException('Faild to open json data file.' . realpath($path));
         }
         $this->path = $path;
         $this->model = new Data($data);
@@ -63,7 +69,11 @@ class JsonDbImpl implements JsonDb
      */
     public function find(int $id): ?array
     {
-        return $this->model->find($id);
+        $row = $this->model->find($id);
+        if (empty($row)) {
+            throw new DataNotFoundException('Data is not exists with id is ' . $id . '.');
+        }
+        return $row;
     }
 
     /**
@@ -94,8 +104,8 @@ class JsonDbImpl implements JsonDb
         $rows = $this->rows($params);
         $offset = $page * $rows;
         $data = $this->model->read($param, $sort);
-        if ($offset >= count($data)) {
-            throw new JsonDbException('Page exceeds total pages.');
+        if ($offset && $offset >= count($data)) {
+            throw new DataNotFoundException('Page number exceeds total pages.');
         }
         return array_slice($data, $offset, $rows);
     }
@@ -117,10 +127,10 @@ class JsonDbImpl implements JsonDb
     public function update(array $data): JsonDb
     {
         if (empty($data['id'])) {
-            throw new JsonDbException('Column id is required in update data.');
+            throw new JsonDbException('Column `id` is required in update data.');
         }
         if (! $this->model->find($data['id'])) {
-            throw new JsonDbException('Data to be updated is not found.');
+            throw new JsonDbException('Data is not exists with id is ' . $data['id'] . '.');
         }
         $this->model->replace($data);
         return $this;
@@ -132,7 +142,7 @@ class JsonDbImpl implements JsonDb
     public function delete(int $id): JsonDb
     {
         if (! $this->model->find($id)) {
-            throw new JsonDbException('Data to be deleted is not found..');
+            throw new JsonDbException('Data is not exists with id is ' . $id . '.');
         }
         $this->model->delete($id);
         return $this;

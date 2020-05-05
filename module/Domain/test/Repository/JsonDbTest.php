@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @see       https://github.com/sawarame/php-json-server for the canonical source repository
+ * @copyright https://github.com/sawarame/php-json-server/blob/master/COPYRIGHT.md
+ * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
+ */
+
 declare(strict_types=1);
 
 namespace DomainTest\Model;
@@ -7,6 +13,7 @@ namespace DomainTest\Model;
 use PHPUnit\Framework\TestCase;
 use Domain\Repository\JsonDbImpl;
 use Domain\Exception\JsonDbException;
+use Domain\Exception\DataNotFoundException;
 
 class JsonDbTest extends TestCase
 {
@@ -44,7 +51,7 @@ class JsonDbTest extends TestCase
 
     public function testLoadDataNotFound()
     {
-        $this->expectException(JsonDbException::class);
+        $this->expectException(DataNotFoundException::class);
         $this->jsonDb->load('not_found');
     }
 
@@ -67,7 +74,13 @@ class JsonDbTest extends TestCase
             ['id' => 2, 'name' => 'Green',  'code' => '#00ff00'],
             $this->jsonDb->find(2)
         );
-        $this->assertNull($this->jsonDb->find(4));
+    }
+
+    public function testFindNotFound()
+    {
+        $this->expectException(DataNotFoundException::class);
+        $this->jsonDb->load('sample');
+        $this->jsonDb->find(4);
     }
 
     public function testRead()

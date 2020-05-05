@@ -12,6 +12,7 @@ namespace Application;
 
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\JsonModel;
+use Domain\Exception\DataNotFoundException;
 
 class Module
 {
@@ -39,8 +40,11 @@ class Module
         if (is_null($exception)) {
             return;
         }
+        if ($exception instanceof DataNotFoundException) {
+            $event->getResponse()->setStatusCode(404);
+        }
         $event->setResult(new JsonModel([
-            'error' => $exception->getMessage()
+            'content' => $exception->getMessage()
         ]));
     }
 
@@ -51,7 +55,7 @@ class Module
             return;
         }
         $event->setResult(new JsonModel([
-            'error' => $exception->getMessage()
+            'content' => $exception->getMessage()
         ]));
     }
 }

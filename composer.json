@@ -48,10 +48,6 @@
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
-        "post-create-project-cmd": [
-            "@development-enable",
-            "php bin/update-gitignore.php"
-        ],
         "serve": "php -S 0.0.0.0:8080 -t public",
         "test": "phpunit"
     }

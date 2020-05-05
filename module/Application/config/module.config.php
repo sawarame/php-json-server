@@ -31,73 +31,13 @@ return [
             'schema'  => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/:schema',
+                    'route' => '/:schema[/:id]',
                     'constraints' => [
                         'schema' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    ],
-                ],
-                'child_routes' => [
-                    'read' => [
-                        'type' => Method::class,
-                        'options' => [
-                            'verb' => 'get',
-                            'defaults' => [
-                                'controller' => Controller\MainController::class,
-                                'action'     => 'read',
-                            ],
-                        ],
-                    ],
-                    'insert' => [
-                        'type' => Method::class,
-                        'options' => [
-                            'verb' => 'post',
-                            'defaults' => [
-                                'controller' => Controller\MainController::class,
-                                'action'     => 'insert',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            'item' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/:schema/:id',
-                    'constraints' => [
-                        'schema'       => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'           => '[0-9]*',
                     ],
-                ],
-                'child_routes' => [
-                    'find' => [
-                        'type' => Method::class,
-                        'options' => [
-                            'verb' => 'get',
-                            'defaults' => [
-                                'controller' => Controller\MainController::class,
-                                'action'     => 'find',
-                            ],
-                        ],
-                    ],
-                    'update' => [
-                        'type' => Method::class,
-                        'options' => [
-                            'verb' => 'post,put',
-                            'defaults' => [
-                                'controller' => Controller\MainController::class,
-                                'action'     => 'update',
-                            ],
-                        ],
-                    ],
-                    'delete' => [
-                        'type' => Method::class,
-                        'options' => [
-                            'verb' => 'delete',
-                            'defaults' => [
-                                'controller' => Controller\MainController::class,
-                                'action'     => 'delete',
-                            ],
-                        ],
+                    'defaults' => [
+                        'controller' => Controller\MainController::class,
                     ],
                 ],
             ],
