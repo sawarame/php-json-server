@@ -58,7 +58,7 @@ class MainService
      * @param integer $id
      * @return array
      */
-    public function find(string $schemaName, int $id): array
+    public function find(string $schemaName, int $id): ?array
     {
         $this->db->load($schemaName);
         return $this->db->find($id);
