@@ -6,12 +6,11 @@
  * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
  */
 
-namespace Domain;
+namespace Domain\Exception;
 
-class Module
+use RuntimeException;
+
+class DataNotFoundException extends RuntimeException
 {
-    public function getConfig(): array
-    {
-        return include __DIR__ . '/../config/module.config.php';
-    }
+
 }

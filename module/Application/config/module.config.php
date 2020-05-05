@@ -38,7 +38,6 @@ return [
                     ],
                     'defaults' => [
                         'controller' => Controller\MainController::class,
-                        //'action'     => 'dispatch',
                     ],
                 ],
             ],

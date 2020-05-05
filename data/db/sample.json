@@ -6,17 +6,12 @@
     },
     {
         "id": 2,
-        "name": "Yellow",
-        "code": "#FFFF00"
+        "name": "Green",
+        "code": "#00ff00"
     },
     {
         "id": 3,
         "name": "Blue",
         "code": "#0000ff"
-    },
-    {
-        "id": 6,
-        "name": "Gray",
-        "code": "#808080"
     }
 ]

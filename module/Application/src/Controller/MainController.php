@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @see       https://github.com/sawarame/php-json-server for the canonical source repository
+ * @copyright https://github.com/sawarame/php-json-server/blob/master/COPYRIGHT.md
+ * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
+ */
+
 declare(strict_types=1);
 
 namespace Application\Controller;
@@ -50,11 +56,7 @@ class MainController extends AbstractRestfulController
 
     public function deleteList($data)
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::deleteList($data));
     }
 
     public function get($id)
@@ -81,47 +83,27 @@ class MainController extends AbstractRestfulController
 
     public function head($id = null)
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::head($id));
     }
 
     public function options()
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::options());
     }
 
     public function patch($id, $data)
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::patch($id, $data));
     }
 
     public function replaceList($data)
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::replaceList($data));
     }
 
     public function patchList($data)
     {
-        $this->getResponse()->setStatusCode(405);
-
-        return new JsonModel([
-            'content' => 'Method Not Allowed',
-        ]);
+        return new JsonModel(parent::patchList($data));
     }
 
     public function update($id, $data)
@@ -139,11 +121,7 @@ class MainController extends AbstractRestfulController
 
     public function notFoundAction()
     {
-        $this->getResponse()->setStatusCode(404);
-
-        return new JsonModel([
-            'content' => 'Page not found',
-        ]);
+        return new JsonModel(parent::notFoundAction());
     }
 
     public function getRequest(): HttpRequest
