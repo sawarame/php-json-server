@@ -1,7 +1,6 @@
 # php-json-sever
 
-![](https://github.com/actions/sawarame/php-json-server/workflow/PHP%20Composer/badge.svg?event=pull_request)
-[![Build Status](https://github.com/sawarame/php-json-server/workflows/PHP%20Composer/badge.svg?branch=master)](https://github.com/sawarame/php-json-server/actions?query=workflow%3A%22PHP+Composer%22+branch%3Amaster)
+[![Build Status](https://github.com/sawarame/php-json-server/workflows/build/badge.svg?branch=master)](https://github.com/sawarame/php-json-server/actions?query=workflow%3A%22PHP+Composer%22+branch%3Amaster)
 [![Version](https://img.shields.io/packagist/v/sawarame/php-json-server.svg?style=flat)](https://packagist.org/packages/sawarame/php-json-server)
 
 `php-json-server` is RESTful API with PHP. The data can be wrote json format, and be able to easily set up RESTful API mock server.
