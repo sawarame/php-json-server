@@ -8,7 +8,7 @@
 
 namespace Domain\Service;
 
-use Domain\Repository\JsonDb;;
+use Domain\Repository\JsonDb;
 use Domain\Exception\DataNotFoundException;
 
 class MainService
