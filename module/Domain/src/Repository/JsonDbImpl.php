@@ -35,17 +35,24 @@ class JsonDbImpl implements JsonDb
      */
     public function load(string $schemaName): JsonDb
     {
-        $path = $this->config['data_path'] . "/${schemaName}.json";
-        if (! is_file($path)) {
-            throw new DataNotFoundException('Json data file is not exists.' . realpath($path));
+        $this->path = $this->config['data_path'] . "/${schemaName}.json";
+        if (! is_file($this->path)) {
+            throw new DataNotFoundException('Json data file is not exists.' . realpath($this->path));
         }
-        $data = json_decode(file_get_contents($path), true);
+        $data = json_decode(file_get_contents($this->path), true);
         if (is_null($data)) {
-            throw new DataNotFoundException('Faild to open json data file.' . realpath($path));
+            throw new DataNotFoundException('Faild to open json data file.' . realpath($this->path));
         }
-        $this->path = $path;
         $this->model = new Data($data);
         return $this;
+    }
+
+    /**
+     * @inheritDoc.
+     */
+    public function hasData(): bool
+    {
+        return ! empty($this->model);
     }
 
     /**
@@ -61,6 +68,9 @@ class JsonDbImpl implements JsonDb
      */
     public function insert(array $data): int
     {
+        if (! $this->hasData()) {
+            $this->model = new Data();
+        }
         return $this->model->replace($data);
     }
 
@@ -153,6 +163,9 @@ class JsonDbImpl implements JsonDb
      */
     public function permanent(): JsonDb
     {
+        if (empty($this->path)) {
+            throw new JsonDbException('Destination path is not specified.');
+        }
         file_put_contents($this->path, json_encode(
             $this->model,
             JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT

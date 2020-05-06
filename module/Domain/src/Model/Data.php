@@ -50,7 +50,7 @@ class Data implements JsonSerializable
      * @param array $data
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         foreach ($data as $row) {
             $this->replace($row);

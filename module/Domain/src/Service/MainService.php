@@ -8,7 +8,8 @@
 
 namespace Domain\Service;
 
-use Domain\Repository\JsonDb;
+use Domain\Repository\JsonDb;;
+use Domain\Exception\DataNotFoundException;
 
 class MainService
 {
@@ -52,8 +53,12 @@ class MainService
      */
     public function insert(string $schemaName, array $data): int
     {
-        $this->db->load($schemaName);
-        $id = $this->db->insert($data);
+        try {
+            $this->db->load($schemaName);
+            $id = $this->db->insert($data);
+        } catch (DataNotFoundException $e) {
+            $id = $this->db->insert($data);
+        }
         $this->db->permanent();
         return $id;
     }

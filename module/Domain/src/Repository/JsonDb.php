@@ -19,6 +19,13 @@ interface JsonDb
     public function load(string $schemaName): JsonDb;
 
     /**
+     * Check to has data or not.
+     *
+     * @return boolean
+     */
+    public function hasData(): bool;
+
+    /**
      * Return current data converted to array.
      *
      * @return array
