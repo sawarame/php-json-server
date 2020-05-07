@@ -97,10 +97,17 @@ class Data implements JsonSerializable
      *
      * @return array
      */
-    public function read(array $param, array $sort = []): array
+    public function read(array $params): array
     {
         $data = $this->getData();
-        return $data;
+        $searchParams = $this->shapeByStruct($params, true);
+        $searched = $data;
+        foreach ($searchParams as $key => $value) {
+            $searched = array_filter($searched, function($row) use ($key, $value) {
+                return is_null($value) || $row[$key] == $value;
+            });
+        }
+        return $searched;
     }
 
     /**
@@ -216,6 +223,10 @@ class Data implements JsonSerializable
 
         $shapedRow = [];
         foreach ($this->struct as $column) {
+            if (! isset($row[$column])) {
+                $shapedRow[$column] = null;
+                continue;
+            }
             if (! is_scalar($row[$column])) {
                 throw new DataException('Column data must be scalar.');
             }

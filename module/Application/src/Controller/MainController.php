@@ -63,7 +63,7 @@ class MainController extends AbstractRestfulController
     {
         return new JsonModel($this->service->find(
             $this->params('schema'),
-            (int)$this->params('id')
+            intval($id)
         ));
     }
 
