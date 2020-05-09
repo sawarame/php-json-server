@@ -108,12 +108,10 @@ class JsonDbImpl implements JsonDb
      */
     public function read(array $params): array
     {
-        $param = [];
-        $sort = [];
         $page = $this->page($params);
         $rows = $this->rows($params);
         $offset = $page * $rows;
-        $data = $this->model->read($param, $sort);
+        $data = $this->model->read($params);
         if ($offset && $offset >= count($data)) {
             throw new DataNotFoundException('Page number exceeds total pages.');
         }
@@ -125,9 +123,7 @@ class JsonDbImpl implements JsonDb
      */
     public function countTotal(array $params): int
     {
-        $param = [];
-        $sort = [];
-        $data = $this->model->read($param, []);
+        $data = $this->model->read($params);
         return count($data);
     }
 
