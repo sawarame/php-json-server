@@ -100,13 +100,33 @@ class Data implements JsonSerializable
     public function read(array $params): array
     {
         $data = $this->getData();
+        // TODO: to be differnt method.
         $searchParams = $this->shapeByStruct($params, true);
-        $searched = $data;
-        foreach ($searchParams as $key => $value) {
-            $searched = array_filter($searched, function($row) use ($key, $value) {
-                return is_null($value) || $row[$key] == $value;
-            });
+        $searchParams = array_filter($searchParams, function($data) {
+            return !is_null($data);
+        });
+        if (isset($params['search_type']) && $params['search_type'] == 'or') {
+            $searched = [];
+            foreach ($searchParams as $key => $value) {
+                $searched = array_merge($searched,
+                    array_filter($data, function($row) use ($key, $value) {
+                        if (is_array($value)) {
+                            return in_array($row[$key], $value);
+                        }
+                        return $row[$key] == $value;
+                    })
+                );
+                dump($searched);
+            }
+        } else {
+            $searched = $data;
+            foreach ($searchParams as $key => $value) {
+                $searched = array_filter($searched, function($row) use ($key, $value) {
+                    return $row[$key] == $value;
+                });
+            }
         }
+
         return $searched;
     }
 
@@ -227,9 +247,9 @@ class Data implements JsonSerializable
                 $shapedRow[$column] = null;
                 continue;
             }
-            if (! is_scalar($row[$column])) {
-                throw new DataException('Column data must be scalar.');
-            }
+            // if (! is_scalar($row[$column])) {
+            //     throw new DataException('Column data must be scalar.');
+            // }
             $shapedRow[$column] = $row[$column];
         }
         return $shapedRow;

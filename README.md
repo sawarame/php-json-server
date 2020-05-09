@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/sawarame/php-json-server/workflows/build/badge.svg?branch=master)](https://github.com/sawarame/php-json-server/actions?query=workflow%3Abuild+branch%3Amaster)
 [![Version](https://img.shields.io/packagist/v/sawarame/php-json-server.svg?style=flat)](https://packagist.org/packages/sawarame/php-json-server)
 
-`php-json-server` is RESTful API with PHP. The data can be wrote json format, and be able to easily set up RESTful API mock server.
+`php-json-server` is RESTful API with PHP. The data can be wrote json format, and you can easily set up RESTful API mock server.
 
 ## Installation and Startup
 
@@ -72,6 +72,19 @@ How to change page is use `page` parameter.
 
 ```sh
 $ curl -X GET 'http://localhost:8080/schema_name?page=2'
+```
+
+You can search by using the column name as the parameter.
+
+```sh
+$ curl -X GET 'http://localhost:8080/schema_name?name=Green'
+```
+
+Normally, When multiple parameters are specified, the search will be an AND condition.
+If you want to search with OR condition, use `or` to `search_type` parameter.
+
+```sh
+$ curl -X GET 'http://localhost:8080/sample?name[]=Red&name[]=Green&search_type=or'
 ```
 
 ### Response header
