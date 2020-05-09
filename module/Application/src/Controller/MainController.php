@@ -74,9 +74,9 @@ class MainController extends AbstractRestfulController
             $this->params()->fromQuery()
         );
         $this->getResponse()->setHeaders(Headers::fromString(
-            'Rest-Api-Total: ' . $result['total'] . "\r\n" .
-            'Rest-Api-pages: ' . $result['pages'] . "\r\n" .
-            'Rest-Api-Rows: ' . $result['rows']
+            'PJS-Total: ' . $result['total'] . "\r\n" .
+            'PJS-pages: ' . $result['pages'] . "\r\n" .
+            'PJS-Rows: ' . $result['rows']
         ));
         return new JsonModel($result['data']);
     }
