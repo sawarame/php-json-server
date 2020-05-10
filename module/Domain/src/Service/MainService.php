@@ -8,11 +8,13 @@
 
 namespace Domain\Service;
 
+use Domain\Service\Logic\SearchLogic;
 use Domain\Repository\JsonDb;
 use Domain\Exception\DataNotFoundException;
 
 class MainService
 {
+    private $search;
     private $db;
 
     /**

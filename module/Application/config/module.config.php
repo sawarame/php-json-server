@@ -12,7 +12,6 @@ namespace Application;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
-use Laminas\Router\Http\Method;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
