@@ -52,7 +52,7 @@ The `schema_name` of file name is used to data name. The data name can be any na
     }
 ]
 ```
-Data must wrote by array of json format and Data structure can be arbitrary, but `id` column is required.
+Data must wrote by array of json format. Data structure is arbitrary, but `id` column is required.
 
 ## Read data
 
@@ -80,8 +80,8 @@ You can search by using the column name as the parameter.
 $ curl -X GET 'http://localhost:8080/schema_name?name=Green'
 ```
 
-Normally, When multiple parameters are specified, the search will be an "AND" condition.
-If you want to search with "OR" condition, use `or` to `search_type` parameter.
+Normally, When multiple parameters are specified, the search will be an AND condition.
+If you want to search with OR condition, use `or` to `search_type` parameter.
 
 ```sh
 $ curl -X GET 'http://localhost:8080/sample?name[]=Red&name[]=Green&search_type=or'
@@ -93,13 +93,13 @@ The response header contains information about paging.
 
 | name | description |
 |:---|:---|
-| PJS-Total: | Total number of data. |
+| PJS-Total: | Total number of datas. |
 | PJS-pages: | Total number of pages. |
 | PJS-Rows: | Rows of current page. |
 
 ## Find row
 
-URL below is example to receive the data that id column value is 123.
+Example below receive the data that `id` column value is 123.
 
 ```sh
 $ curl -X GET 'http://localhost:8080/schema_name/123'
