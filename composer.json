@@ -10,7 +10,7 @@
         "API"
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "laminas/laminas-component-installer": "^2.4",
         "laminas/laminas-development-mode": "^3.2",
         "laminas/laminas-mvc": "^3.1.1",
