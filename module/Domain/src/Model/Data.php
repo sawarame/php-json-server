@@ -100,7 +100,7 @@ class Data implements JsonSerializable
     public function read(array $params): array
     {
         $data = $this->getData();
-        // TODO: to be differnt method.
+
         $searchParams = $this->shapeByStruct($params, true);
         $searchParams = array_filter($searchParams, function ($data) {
             return ! is_null($data);
@@ -111,19 +111,15 @@ class Data implements JsonSerializable
                 $searched = array_merge(
                     $searched,
                     array_filter($data, function ($row) use ($key, $value) {
-                        if (is_array($value)) {
-                            return in_array($row[$key], $value);
-                        }
-                        return $row[$key] == $value;
+                        return $this->isContain($row, $key, $value);
                     })
                 );
-                dump($searched);
             }
         } else {
             $searched = $data;
             foreach ($searchParams as $key => $value) {
                 $searched = array_filter($searched, function ($row) use ($key, $value) {
-                    return $row[$key] == $value;
+                    return $this->isContain($row, $key, $value);
                 });
             }
         }
@@ -213,6 +209,30 @@ class Data implements JsonSerializable
     }
 
     /**
+     * Format argument into structure of data model.
+     *
+     * @param array $row
+     * @param boolean $force
+     * @return array
+     */
+    private function shapeByStruct(array $row, bool $force = false): array
+    {
+        if (! $force && ! $this->checkStruct($row)) {
+            throw new DataException('Failed to format data.');
+        }
+
+        $shapedRow = [];
+        foreach ($this->struct as $column) {
+            if (! isset($row[$column])) {
+                $shapedRow[$column] = null;
+                continue;
+            }
+            $shapedRow[$column] = $row[$column];
+        }
+        return $shapedRow;
+    }
+
+    /**
      * Check whether argument is same as struct of data model.
      *
      * @param integer $id
@@ -235,26 +255,19 @@ class Data implements JsonSerializable
     }
 
     /**
-     * Format argument into structure of data model.
+     * Check row contain value or not.
+     * This is used by array_filter argument.
      *
-     * @param array $row
-     * @param boolean $force
-     * @return array
+     * @param [type] $row
+     * @param [type] $key
+     * @param [type] $value
+     * @return boolean
      */
-    private function shapeByStruct(array $row, bool $force = false): array
+    private function isContain($row, $key, $value): bool
     {
-        if (! $force && ! $this->checkStruct($row)) {
-            throw new DataException('Failed to format data.');
+        if (is_array($value)) {
+            return in_array($row[$key], $value);
         }
-
-        $shapedRow = [];
-        foreach ($this->struct as $column) {
-            if (! isset($row[$column])) {
-                $shapedRow[$column] = null;
-                continue;
-            }
-            $shapedRow[$column] = $row[$column];
-        }
-        return $shapedRow;
+        return $row[$key] == $value;
     }
 }

@@ -115,7 +115,7 @@ $ curl -X POST 'http://localhost:8080/schema_name' \
   --data-raw '{"name":"Gray","code":"#808080"}'
 ```
 
-Response data that created.
+Created data will be returned.
 
 ```json
 {"id":4,"name":"Gray","code":"#808080"}
@@ -131,7 +131,7 @@ $ curl -X PUT 'http://localhost:8080/schema_name/2' \
   --data-raw '{"name":"Yellow","code":"#FFFF00"}'
 ```
 
-Response data that updated.
+Updated data will be returned.
 
 ```json
 {"id":2,"name":"Yellow","code":"#FFFF00"}
@@ -145,7 +145,7 @@ Use DELETE method for delete data.
 $ curl -X DELETE 'http://localhost:8080/schema_name/4'
 ```
 
-Response data that deleted.
+Deleted data will be returned.
 
 ```json
 {"id":4,"name":"Gray","code":"#808080"}

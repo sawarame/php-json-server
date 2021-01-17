@@ -10,6 +10,7 @@ namespace Domain\Service;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Domain\Service\Logic\SearchLogic;
 use Domain\Repository\JsonDb;
 
 class MainServiceFactory implements FactoryInterface
