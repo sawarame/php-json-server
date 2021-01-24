@@ -1,6 +1,7 @@
-laminas:
+php-json-server:
   build: .
   dockerfile: Dockerfile
+  container_name: php-json-server_1
   ports:
    - "8080:80"
   volumes:
