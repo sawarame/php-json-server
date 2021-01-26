@@ -1,8 +1,11 @@
-php-json-server:
-  build: .
-  dockerfile: Dockerfile
-  container_name: php-json-server_1
-  ports:
-   - "8080:80"
-  volumes:
-   - .:/var/www
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php-json-server
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www

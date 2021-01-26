@@ -13,6 +13,8 @@ use Domain\Exception\DataException;
 
 /**
  * Data model class.
+ *
+ * @deprecated
  */
 class Data implements JsonSerializable
 {

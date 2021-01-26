@@ -12,6 +12,9 @@ use Domain\Service\Logic\SearchLogic;
 use Domain\Repository\JsonDb;
 use Domain\Exception\DataNotFoundException;
 
+/**
+ * @deprecated
+ */
 class MainService
 {
     private $search;

@@ -6,20 +6,16 @@
  * @license   https://github.com/sawarame/php-json-server/blob/master/LICENSE.md New BSD License
  */
 
-namespace Application\Controller;
+namespace Domain\Service\Logic;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Domain\Service\DataService;
 
-class MainControllerFactory implements FactoryInterface
+class DataLogicFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $options = $options ?: null;
-        $data = $container->get(dataService::class);
-        return new $requestedName(
-            $data
-        );
+        return new $requestedName();
     }
 }

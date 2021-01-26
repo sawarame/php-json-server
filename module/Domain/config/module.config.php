@@ -11,11 +11,11 @@ namespace Domain;
 return [
     'service_manager' => [
         'factories' => [
-            Service\MainService::class => Service\MainServiceFactory::class,
-            Repository\JsonDbImpl::class => Repository\JsonDbFactory::class,
+            Service\DataService::class => Service\DataServiceFactory::class,
+            Service\Logic\DataLogic::class => Service\Logic\DataLogicFactory::class,
+            Repository\Db\JsonDb::class => Repository\Db\JsonDbFactory::class,
         ],
         'aliases' => [
-            Repository\JsonDb::class => Repository\JsonDbImpl::class,
         ],
     ],
     'json_db' => [
