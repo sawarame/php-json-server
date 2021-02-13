@@ -25,9 +25,15 @@ class DataLogic
         if (isset($params['search_type']) && $params['search_type'] == 'or') {
             $searched = [];
             foreach ($params as $key => $value) {
+                if ($key == 'search_type') {
+                    continue;
+                }
                 $searched = array_merge(
                     $searched,
                     array_filter($rows, function ($row) use ($key, $value) {
+                        if (! isset($row[$key])) {
+                            return false;
+                        }
                         if (is_array($value)) {
                             return in_array($row[$key], $value);
                         }
@@ -38,7 +44,13 @@ class DataLogic
         } else {
             $searched = $rows;
             foreach ($params as $key => $value) {
+                if ($key == 'search_type') {
+                    continue;
+                }
                 $searched = array_filter($searched, function ($row) use ($key, $value) {
+                    if (! isset($row[$key])) {
+                        return false;
+                    }
                     if (is_array($value)) {
                         return in_array($row[$key], $value);
                     }
