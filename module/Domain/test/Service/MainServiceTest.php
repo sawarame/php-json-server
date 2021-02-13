@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace DomainTest\Model;
+namespace DomainTest\Service;
 
 use PHPUnit\Framework\TestCase;
 use Domain\Repository\JsonDbImpl;

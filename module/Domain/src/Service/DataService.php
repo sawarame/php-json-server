@@ -8,25 +8,30 @@
 
 namespace Domain\Service;
 
-use Domain\Repository\Db\JsonDb;
-use Domain\Service\Logic\DataLogic;
-use Exception;
+use Domain\Service\Logic\JsonDbManagerLogic;
 
 class DataService
 {
-    private $db;
-
-    private $dataLogic;
+    private $jsonDbManagerLogic;
 
     /**
      * Constructor.
      */
     public function __construct(
-        JsonDb $db,
-        DataLogic $dataLogic
+        JsonDbManagerLogic $jsonDbManagerLogic
     ) {
-        $this->db = $db;
-        $this->dataLogic = $dataLogic;
+        $this->jsonDbManagerLogic = $jsonDbManagerLogic;
+    }
+
+    /**
+     * Find data by primary key.
+     *
+     * @param integer $id
+     * @return array
+     */
+    public function find(string $schemaName, int $id): ?array
+    {
+        return $this->jsonDbManagerLogic->find($schemaName, $id);
     }
 
     /**
@@ -38,25 +43,7 @@ class DataService
      */
     public function read(string $schemaName, array $params): array
     {
-        $allRows = $this->db->read($schemaName);
-        $columns = $this->dataLogic->columns(current($allRows));
-        $shapedParams = array_filter($this->dataLogic->shape($columns, $params), function ($data) {
-            return ! is_null($data);
-        });
-        $searchedRows = $this->dataLogic->search($allRows, $shapedParams);
-
-        $total = count($searchedRows);
-        $page = $this->dataLogic->page($params);
-        $results = $this->dataLogic->results($params);
-        $offset = $page * $results;
-        $data = array_slice($searchedRows, $offset, $results);
-
-        return [
-            'total' => $total,
-            'pages' => (int)ceil($total / $results),
-            'results'  => count($data),
-            'data'  => $data,
-        ];
+        return $this->jsonDbManagerLogic->read($schemaName, $params);
     }
 
     /**
@@ -68,34 +55,7 @@ class DataService
      */
     public function insert(string $schemaName, array $row): array
     {
-        $allRows = $this->db->read($schemaName);
-        $shapedRow = $this->dataLogic->shape(
-            $this->dataLogic->columns(current($allRows)),
-            $row
-        );
-
-        if (empty($shapedRow['id'])) {
-            $shapedRow['id'] = $this->dataLogic->maxId($allRows) + 1;
-        }
-
-        if ($this->dataLogic->find($allRows, $shapedRow['id'])) {
-            throw new Exception('The id is already exists.');
-        }
-
-        $this->db->save($schemaName, array_merge($allRows, [$shapedRow]));
-        return $shapedRow;
-    }
-
-    /**
-     * Find data by primary key.
-     *
-     * @param integer $id
-     * @return array
-     */
-    public function find(string $schemaName, int $id): ?array
-    {
-        $allRows = $this->db->read($schemaName);
-        return $this->dataLogic->find($allRows, $id);
+        return $this->jsonDbManagerLogic->insert($schemaName, $row);
     }
 
     /**
@@ -106,25 +66,7 @@ class DataService
      */
     public function update(string $schemaName, array $row): ?array
     {
-        $allRows = $this->db->read($schemaName);
-        $shapedRow = $this->dataLogic->shape(
-            $this->dataLogic->columns(current($allRows)),
-            $row
-        );
-
-        if (empty($shapedRow['id'])) {
-            throw new Exception('Column `id` is required in update data.');
-        }
-
-        foreach ($allRows as $key => $org) {
-            if ($org['id'] == $shapedRow['id']) {
-                $allRows[$key] = $shapedRow;
-                $this->db->save($schemaName, $allRows);
-                return $shapedRow;
-            }
-        }
-
-        throw new Exception('Data is not exists with id is ' . $shapedRow['id'] . '.');
+        return $this->jsonDbManagerLogic->update($schemaName, $row);
     }
 
     /**
@@ -135,16 +77,6 @@ class DataService
      */
     public function delete(string $schemaName, int $id): ?array
     {
-        $allRows = $this->db->read($schemaName);
-
-        foreach ($allRows as $key => $row) {
-            if ($row['id'] == $id) {
-                $deletedRow = $allRows[$key];
-                unset($allRows[$key]);
-                $this->db->save($schemaName, $allRows);
-                return $deletedRow;
-            }
-        }
-        throw new Exception('Data is not exists with id is ' . $id . '.');
+        return $this->jsonDbManagerLogic->delete($schemaName, $id);
     }
 }
