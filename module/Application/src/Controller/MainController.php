@@ -15,28 +15,31 @@ use Laminas\View\Model\JsonModel;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Http\PhpEnvironment\Response as HttpResponse;
 use Laminas\Http\Headers;
-use Domain\Service\MainService;
+use Domain\Service\DataService;
 
 class MainController extends AbstractRestfulController
 {
+
+    /**
+     *
+     * @var DataService
+     */
+    private $dataService = null;
+
     /**
      * Constructor.
      */
     public function __construct(
-        MainService $service
+        DataService $dataService
     ) {
-        $this->service = $service;
+        $this->dataService = $dataService;
     }
 
     public function create($data)
     {
-        $id = $this->service->insert(
+        return new JsonModel($this->dataService->insert(
             $this->params('schema'),
             $data
-        );
-        return new JsonModel($this->service->find(
-            $this->params('schema'),
-            $id
         ));
     }
 
@@ -61,7 +64,7 @@ class MainController extends AbstractRestfulController
 
     public function get($id)
     {
-        return new JsonModel($this->service->find(
+        return new JsonModel($this->dataService->find(
             $this->params('schema'),
             intval($id)
         ));
@@ -69,14 +72,14 @@ class MainController extends AbstractRestfulController
 
     public function getList()
     {
-        $result = $this->service->read(
+        $result = $this->dataService->read(
             $this->params('schema'),
             $this->params()->fromQuery()
         );
         $this->getResponse()->setHeaders(Headers::fromString(
             'PJS-Total: ' . $result['total'] . "\r\n" .
             'PJS-pages: ' . $result['pages'] . "\r\n" .
-            'PJS-Rows: ' . $result['rows']
+            'PJS-Rows: ' . $result['results']
         ));
         return new JsonModel($result['data']);
     }
@@ -109,13 +112,9 @@ class MainController extends AbstractRestfulController
     public function update($id, $data)
     {
         $data['id'] = intval($id);
-        $this->service->update(
+        return new JsonModel($this->dataService->update(
             $this->params('schema'),
             $data
-        );
-        return new JsonModel($this->service->find(
-            $this->params('schema'),
-            $data['id']
         ));
     }
 

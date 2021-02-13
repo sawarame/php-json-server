@@ -8,6 +8,9 @@
 
 namespace Domain\Repository;
 
+/**
+ * @deprecated
+ */
 interface JsonDb
 {
     /**

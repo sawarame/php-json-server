@@ -12,6 +12,9 @@ use Domain\Model\Data;
 use Domain\Exception\JsonDbException;
 use Domain\Exception\DataNotFoundException;
 
+/**
+ * @deprecated
+ */
 class JsonDbImpl implements JsonDb
 {
 
