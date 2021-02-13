@@ -13,6 +13,5 @@ WORKDIR /var/www
 
 COPY . /var/www
 
-RUN mkdir ./data/cache \
-  && chmod 777 ./data/cache \
+RUN chmod 777 ./data/cache \
   && composer install
