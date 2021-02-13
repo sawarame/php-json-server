@@ -6,7 +6,7 @@
     </include>
   </coverage>
   <testsuites>
-    <testsuite name="Laminas MVC Skeleton Test Suite">
+    <testsuite name="MVC Application Test Suite">
       <directory>./module/Application/test</directory>
     </testsuite>
     <testsuite name="Domain Test Suite">

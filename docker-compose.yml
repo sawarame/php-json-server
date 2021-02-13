@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: php-json-server
     ports:
       - "8080:80"

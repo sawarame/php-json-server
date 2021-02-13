@@ -63,7 +63,4 @@ class JsonDbManagerLogicTest extends TestCase
         );
     }
 
-    public function testRead() {
-
-    }
 }
