@@ -83,7 +83,7 @@ class DataLogic
             }
             $shaped[$column] = $row[$column];
         }
-        if (!empty($row['search_type'])) {
+        if (! empty($row['search_type'])) {
             $shaped['search_type'] = $row['search_type'];
         }
         return $shaped;

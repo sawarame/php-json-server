@@ -62,5 +62,4 @@ class JsonDbManagerLogicTest extends TestCase
             $this->jsonDbManagerLogic->find($schemaName, $id)
         );
     }
-
 }
